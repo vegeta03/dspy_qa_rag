@@ -12,6 +12,7 @@ colorlog==6.8.2
 datasets==2.20.0
 dill==0.3.8
 distro==1.9.0
+dspy-ai @ git+https://github.com/stanfordnlp/dspy.git@92cc1dcad401c5d0cc14fd9f6fa7875906af2725
 filelock==3.15.4
 frozenlist==1.4.1
 fsspec==2024.5.0
