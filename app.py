@@ -42,3 +42,16 @@ print("\n### Generate Response ###\n")
 generate_answer = dspy.Predict(BasicQA)
 prediction = generate_answer(question=example.question)
 print(f"Question: {example.question} \nPredicted Answer: {prediction.answer}")
+
+# 3. Chatbot with Chain of Thought
+print("\n### Generate Response with Chain of THought ###\n")
+generate_answer_with_chain_of_thought = dspy.ChainOfThought(BasicQA)
+prediction = generate_answer_with_chain_of_thought(question=example.question)
+split_rationale = prediction.rationale.split('.', 1)
+if len(split_rationale) > 1:
+    rationale_part = split_rationale[1].strip()
+else:
+    rationale_part = "No further details available."
+
+print(f"Question: {example.question}\nThought: {rationale_part}\nPredicted Answer: {prediction.answer}")
+# print(f"Question: {example.question}\nThought: {prediction.rationale.split('.', 1)[1].strip()}\nPredicted Answer: {prediction.answer}")
