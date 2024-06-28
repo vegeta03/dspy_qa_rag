@@ -2,7 +2,7 @@ import dspy
 from dspy.datasets import HotPotQA
 from rich import print
 
-# Setup the LM
+# 1. Setup the LM, Configuration and Data Loading
 llama3_simpo = dspy.OllamaLocal(
     model="r3m8/llama3-simpo:8b-instruct-q3_K_M",
     model_type="chat",
@@ -31,3 +31,14 @@ example = devset[18]
 print(f"Question: {example.question}")
 print(f"Answer: {example.answer}")
 print(f"Relevant Wikipedia Titles: {example.gold_titles}")
+
+# 2. Basic Chatbot
+class BasicQA(dspy.Signature):
+    """Answer questions with short factoid answers."""
+    question = dspy.InputField()
+    answer = dspy.OutputField(desc="often between 1 nad 5 words")
+
+print("\n### Generate Response ###\n")
+generate_answer = dspy.Predict(BasicQA)
+prediction = generate_answer(question=example.question)
+print(f"Question: {example.question} \nPredicted Answer: {prediction.answer}")
